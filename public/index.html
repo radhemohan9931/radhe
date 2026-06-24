@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#4f46e5" />
+    <meta
+      name="description"
+      content="ClipAI — AI-powered video editing platform. Create viral short clips for TikTok, Instagram Reels & YouTube Shorts with AI captions, B-roll, smart scheduling and analytics."
+    />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%AC%3C/text%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <title>ClipAI — AI Video Editing Platform</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background: #f8fafc;
+      }
+      #initial-loader {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 16px;
+        background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        z-index: 9999;
+        transition: opacity 0.4s ease;
+      }
+      #initial-loader.fade-out { opacity: 0; pointer-events: none; }
+      .loader-emoji { font-size: 56px; animation: bounce 1.2s ease-in-out infinite; }
+      @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-14px); }
+      }
+      .loader-text { color: #fff; font-weight: 600; font-size: 15px; letter-spacing: 0.3px; opacity: 0.9; }
+      noscript { color: #1e293b; padding: 40px; display: block; text-align: center; font-size: 16px; }
+    </style>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run ClipAI.</noscript>
+    <div id="initial-loader">
+      <div class="loader-emoji">🎬</div>
+      <div class="loader-text">Loading ClipAI…</div>
+    </div>
+    <div id="root"></div>
+    <script>
+      window.addEventListener('load', function () {
+        setTimeout(function () {
+          var loader = document.getElementById('initial-loader');
+          if (loader) {
+            loader.classList.add('fade-out');
+            setTimeout(function () { loader.remove(); }, 450);
+          }
+        }, 300);
+      });
+    </script>
+  </body>
+</html>
