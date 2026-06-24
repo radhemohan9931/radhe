@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Play, Upload, Calendar, BarChart3, Settings, Plus, Trash2, Download, Share2 } from 'lucide-react';
+import { Play, Upload, Plus, Trash2, Download, Share2 } from 'lucide-react';
 import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const ClipAIApp = () => {
   const [activeTab, setActiveTab] = useState('generator');
-  const [videoFile, setVideoFile] = useState(null);
+  const [, setVideoFile] = useState(null);
   const [aiStyle, setAiStyle] = useState('Viral Hooks');
   const [clips, setClips] = useState([
     { id: 1, name: 'Clip 1', duration: 30, captions: 'Amazing hook content!', style: 'Bold Pop', platform: 'TikTok', brroll: 'Sunset Footage' },
@@ -136,13 +136,23 @@ const ClipAIApp = () => {
       
       <div className="flex gap-2 mb-6 overflow-x-auto">
         {clips.map(clip => (
-          <button
-            key={clip.id}
-            onClick={() => setActiveClip(clip.id)}
-            className={`px-4 py-2 rounded-lg font-semibold whitespace-nowrap transition ${activeClip === clip.id ? 'bg-purple-600 text-white' : 'bg-white border border-gray-300'}`}
-          >
-            {clip.name}
-          </button>
+          <div key={clip.id} className="relative group">
+            <button
+              onClick={() => setActiveClip(clip.id)}
+              className={`px-4 py-2 pr-8 rounded-lg font-semibold whitespace-nowrap transition ${activeClip === clip.id ? 'bg-purple-600 text-white' : 'bg-white border border-gray-300'}`}
+            >
+              {clip.name}
+            </button>
+            {clips.length > 1 && (
+              <button
+                onClick={(e) => { e.stopPropagation(); handleDeleteClip(clip.id); }}
+                className={`absolute right-1.5 top-1/2 -translate-y-1/2 opacity-60 hover:opacity-100 ${activeClip === clip.id ? 'text-white' : 'text-gray-500'}`}
+                title="Delete clip"
+              >
+                <Trash2 size={13} />
+              </button>
+            )}
+          </div>
         ))}
         <button onClick={handleAddClip} className="px-4 py-2 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 flex items-center gap-1">
           <Plus size={18} /> Add
@@ -228,6 +238,12 @@ const ClipAIApp = () => {
             <p className="text-sm text-gray-600">Best time: <strong>{bestTimes[platform]?.time}</strong></p>
             <p className="text-xs text-green-600 font-semibold">{bestTimes[platform]?.boost}</p>
             <button className="mt-3 w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 font-semibold">Connect</button>
+            <button
+              onClick={() => handleSchedulePost(clips[0]?.id || 1, platform, new Date().toISOString().slice(0, 10), bestTimes[platform]?.time || '12:00')}
+              className="mt-2 w-full border border-green-500 text-green-600 py-1.5 rounded-lg hover:bg-green-50 text-sm font-semibold"
+            >
+              + Quick Schedule at Best Time
+            </button>
           </div>
         ))}
       </div>
